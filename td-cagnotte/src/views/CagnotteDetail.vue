@@ -33,7 +33,10 @@ export default {
     </header>
 
     <div class="detail-card">
-      <router-link :to="'/cagnottes/' + cagnotte.id + '/donations'">Dodododo...nez, donnez moi d'la moulaga!</router-link>
+      <div style="display: flex; justify-content: space-between;">
+        <router-link :to="'/cagnottes/' + cagnotte.id + '/donations'">Dodododo...nez, donnez moi d'la moulaga!</router-link>
+        <router-link :to="'/cagnottes/' + cagnotte.id + '/edit'">Modifier</router-link>
+      </div>
       <Cagnotte :cagnotte="cagnotte" />
 
       <div class="stats-section">
