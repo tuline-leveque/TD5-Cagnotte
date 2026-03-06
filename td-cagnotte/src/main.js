@@ -6,6 +6,6 @@ import MyPlugin from "@/plugins/tools.js";
 const app = createApp(App)
 
 app.use(router)
-app.use(MyPlugin)
+app.use(MyPlugin, { limit: 40 })
 
 app.mount('#app')

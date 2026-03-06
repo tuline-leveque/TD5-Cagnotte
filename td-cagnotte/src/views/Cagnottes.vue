@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     activeCagnottes() {
-      const now = new Date();
+      const now = new Date().setHours(0, 0, 0, 0);
       const a = this.cagnottes
         .filter(c => new Date(c.end_date) >= now);
       console.log(a)
@@ -55,9 +55,9 @@ export default {
     },
 
     finishedCagnottes() {
-      const now = new Date();
+      const now = new Date().setHours(0, 0, 0, 0);
       return this.cagnottes
-        .filter(c => new Date(c.end_date) <= now);
+        .filter(c => new Date(c.end_date) < now);
     }
   },
   async mounted() {
