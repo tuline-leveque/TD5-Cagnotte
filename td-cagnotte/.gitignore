@@ -38,5 +38,4 @@ __screenshots__/
 # Vite
 *.timestamp-*-*.mjs
 
-.keys
-/src/plugins/api.js
+.env
