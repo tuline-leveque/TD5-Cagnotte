@@ -33,6 +33,7 @@ export default {
     </header>
 
     <div class="detail-card">
+      <router-link :to="'/cagnottes/' + cagnotte.id + '/donations'">Dodododo...nez, donnez moi d'la moulaga!</router-link>
       <Cagnotte :cagnotte="cagnotte" />
 
       <div class="stats-section">
