@@ -1,14 +1,19 @@
 <template>
-  <div class="card" :class="colorClass">
-    <h3>{{ cagnotte.nom }}</h3>
-    <p>{{ cutText(cagnotte.description) }}</p>
+  <div v-if="cagnotte" class="card" :class="colorClass">
+
+    <h3>{{ cagnotte.name || 'Sans nom' }}</h3>
+
+    <p>{{ this.cutText(cagnotte.description) }}</p>
 
     <div class="progress-bg">
       <div class="progress-bar" :style="{ width: percent + '%' }"></div>
     </div>
-    <small>{{ percent }}% atteint ({{ formatAmount(cagnotte.montant_actuel) }})</small>
 
-    <p>Fin le : {{ dbDateToFr(cagnotte.date_fin) }}</p>
+    <small>
+      {{ percent }}% atteint ({{ formatAmount(cagnotte._achieved || 0) }} / {{ cagnotte.goal}} €)
+    </small>
+
+    <p>Fin le : {{ dbDateToFr(cagnotte.end_date || '') }}</p>
   </div>
 </template>
 
@@ -17,14 +22,16 @@ export default {
   props: ['cagnotte'],
   computed: {
     percent() {
-      // Attention aux noms des champs venant de ton API (nom/name, objectif/goal ?)
-      const actuel = this.cagnotte.montant_actuel || 0;
-      const objectif = this.cagnotte.objectif || 1;
+      const objectif = parseFloat(this.cagnotte.goal) || 1;
+      const actuel = parseFloat(this.cagnotte._achieved) || 0;
+
       const p = (actuel / objectif) * 100;
       return Math.min(Math.round(p), 100);
     },
     colorClass() {
-      const diff = new Date(this.cagnotte.date_fin) - new Date();
+      if (!this.cagnotte.end_date) return 'blue';
+
+      const diff = new Date(this.cagnotte.end_date) - new Date();
       const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
       if (days < 0) return 'gray';
